@@ -25,7 +25,20 @@
     --green:   #3E7A4E;
   }
 
+  html.dark {
+    --cream:   #16120D;
+    --card:    #201A12;
+    --border:  #3C3123;
+    --orange:  #F0803A;
+    --orange-d:#D96A22;
+    --saffron: #D9AE4E;
+    --ink:     #EEE4D2;
+    --mid:     #9F917A;
+  }
+  html.dark body { background: var(--cream); }
+
   html { -webkit-text-size-adjust: 100%; }
+  html.dark { color-scheme: dark; }
 
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -34,6 +47,7 @@
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     padding-bottom: 40px;
+    transition: background .2s ease, color .2s ease;
   }
 
   h1, h2, .serif { font-family: Georgia, 'Times New Roman', serif; }
@@ -91,28 +105,48 @@
   .header p.tagline { font-size: .84rem; color: #C9BFA9; margin-top: 2px; }
   .header-title { flex: 1; min-width: 0; }
 
-  .voice-toggle {
-    margin-left: auto;
+  .header-controls { margin-left: auto; flex-shrink: 0; display: flex; align-items: center; gap: 6px; }
+
+  .lang-toggle {
+    display: flex;
+    border-radius: 999px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.28);
     flex-shrink: 0;
+  }
+  .lang-btn {
+    background: transparent;
+    border: none;
+    color: #F4EEE0;
+    font: inherit; font-size: .76rem; font-weight: 700;
+    padding: 12px 12px;
+    min-height: 44px;
+    cursor: pointer;
+  }
+  .lang-btn.active { background: rgba(255,255,255,.22); }
+
+  .icon-toggle {
+    flex-shrink: 0;
+    width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
     background: rgba(255,255,255,.12);
     border: 1px solid rgba(255,255,255,.28);
     color: #F4EEE0;
-    font: inherit; font-size: .76rem; font-weight: 700;
-    padding: 7px 12px;
+    font-size: 1.05rem;
     border-radius: 999px;
     cursor: pointer;
+    padding: 0;
   }
-  .voice-toggle:active { background: rgba(255,255,255,.22); }
+  .icon-toggle:active { background: rgba(255,255,255,.22); }
 
   /* ---------- Voice panel ---------- */
   .voice-panel { max-width: 560px; margin: 0 auto; padding: 0 16px; position: relative; z-index: 1; }
   .voice-panel[hidden] { display: none; }
   .voice-panel-inner {
-    background: #FDF6E8;
-    border: 1px solid var(--border);
-    border-top: 3px solid var(--orange);
-    border-radius: 0 0 10px 10px;
-    padding: 14px;
+    background: var(--card);
+    border-top: 2px solid var(--orange);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 2px;
     font-size: .86rem;
   }
   .voice-desc { color: var(--mid); margin-bottom: 10px; line-height: 1.45; }
@@ -149,72 +183,93 @@
     padding: 0;
   }
 
+  /* ---------- Speed bar ---------- */
+  .speed-bar {
+    max-width: 560px; margin: 0 auto;
+    display: flex; align-items: center; gap: 8px;
+    padding: 9px 16px;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+  }
+  .speed-icon { font-size: .95rem; flex-shrink: 0; }
+  .speed-label { font-size: .78rem; font-weight: 700; color: var(--mid); flex-shrink: 0; }
+  .speed-bar input[type="range"] {
+    flex: 1; min-width: 0;
+    accent-color: var(--orange);
+    height: 20px;
+  }
+  .speed-value {
+    font-size: .78rem; font-weight: 700; color: var(--navy);
+    min-width: 34px; text-align: right; flex-shrink: 0;
+  }
+
   /* ---------- Tabs ---------- */
   .tabs {
-    display: flex; gap: 6px;
-    padding: 14px 16px 0;
+    display: flex; gap: 4px;
+    padding: 18px 16px 0;
     max-width: 560px; margin: 0 auto;
+    border-bottom: 1px solid var(--border);
   }
   .tab-btn {
     flex: 1;
-    padding: 10px 8px;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 44px;
+    padding: 0 2px 12px;
+    margin-bottom: -1px;
     border: none;
-    background: var(--border);
+    border-bottom: 2px solid transparent;
+    background: none;
     color: var(--mid);
-    font: inherit; font-weight: 600; font-size: .92rem;
-    border-radius: 10px 10px 0 0;
+    font: inherit; font-weight: 600; font-size: .78rem;
     cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
-  .tab-btn.active { background: var(--card); color: var(--navy); }
+  .tab-btn.active { color: var(--navy); border-bottom-color: var(--orange); font-weight: 700; }
+  html.dark .tab-btn.active { color: var(--ink); }
 
   .panel { max-width: 560px; margin: 0 auto; padding: 0 16px; }
   .panel[hidden] { display: none; }
-  .card-surface { background: var(--card); border: 1px solid var(--border); border-top: none; border-radius: 0 0 12px 12px; padding: 16px; }
+  .card-surface { padding: 20px 0 26px; }
 
   /* ---------- Info tip ---------- */
   .tip {
-    margin-top: 14px;
-    background: #FDF6E8;
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--saffron);
-    border-radius: 8px;
-    padding: 10px 12px;
+    margin-top: 16px;
+    border-left: 2px solid var(--saffron);
+    padding: 4px 0 4px 12px;
     font-size: .82rem;
     color: var(--mid);
-    line-height: 1.45;
+    line-height: 1.5;
   }
   .tip strong { color: var(--ink); }
 
   /* ---------- Search ---------- */
-  .search-wrap { margin-top: 14px; }
+  .search-wrap { margin-top: 16px; }
   .search-wrap input {
     width: 100%;
+    min-height: 44px;
     padding: 11px 14px;
     border: 1px solid var(--border);
     border-radius: 10px;
     font: inherit; font-size: .95rem;
-    background: var(--cream);
+    background: var(--card);
     color: var(--ink);
   }
   .search-wrap input:focus { outline: 2px solid var(--orange); outline-offset: 1px; }
 
   /* ---------- Category pills ---------- */
   .cats {
-    display: flex; gap: 8px;
-    overflow-x: auto;
-    margin-top: 14px;
-    padding-bottom: 4px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-top: 16px;
   }
-  .cats::-webkit-scrollbar { display: none; }
   .pill {
-    flex-shrink: 0;
     display: flex; align-items: center; gap: 6px;
-    padding: 8px 14px;
+    min-height: 44px;
+    padding: 8px 15px;
     border-radius: 999px;
     border: 1px solid var(--border);
-    background: var(--cream);
+    background: var(--card);
     color: var(--mid);
     font: inherit; font-size: .86rem; font-weight: 600;
     cursor: pointer;
@@ -222,23 +277,48 @@
   .pill.active { background: var(--navy); color: #fff; border-color: var(--navy); }
 
   /* ---------- Phrase cards ---------- */
-  .phrase-list { margin-top: 16px; display: flex; flex-direction: column; gap: 10px; }
+  .phrase-list { margin-top: 18px; border-top: 1px solid var(--border); }
   .phrase-card {
-    display: flex; align-items: center; gap: 12px;
-    padding: 13px 14px;
-    background: var(--cream);
-    border: 1px solid var(--border);
-    border-radius: 12px;
+    display: flex; align-items: center; gap: 14px;
+    padding: 15px 2px;
+    border-bottom: 1px solid var(--border);
   }
   .phrase-text { flex: 1; min-width: 0; }
-  .phrase-es { font-size: 1.02rem; font-weight: 600; color: var(--ink); }
-  .phrase-en { font-size: .84rem; color: var(--mid); margin-top: 2px; }
-  .phrase-note { font-size: .76rem; color: var(--orange-d); margin-top: 3px; font-style: italic; }
-  .cat-label { font-size: .7rem; color: var(--saffron); font-weight: 700; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 2px; }
+  .phrase-es { font-family: Georgia, 'Times New Roman', serif; font-size: 1.15rem; font-weight: 600; color: var(--ink); line-height: 1.5; }
+  .phrase-en { font-size: .84rem; color: var(--mid); margin-top: 3px; }
+  .phrase-note { font-size: .76rem; color: var(--orange-d); margin-top: 4px; font-style: italic; }
+  .cat-label { font-size: .7rem; color: var(--saffron); font-weight: 700; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 3px; }
+
+  .w {
+    position: relative;
+    border-bottom: 1px dotted var(--saffron);
+    padding: 2px 1px;
+    margin: -2px -1px;
+    cursor: pointer;
+  }
+  .w.gloss-active { border-bottom-style: solid; color: var(--orange-d); }
+  .w.gloss-active::after {
+    content: attr(data-gloss);
+    position: absolute;
+    left: 50%; bottom: 100%;
+    transform: translateX(-50%);
+    margin-bottom: 6px;
+    background: var(--navy);
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: .74rem; font-weight: 600; line-height: 1.3;
+    padding: 6px 10px;
+    border-radius: 7px;
+    white-space: normal;
+    width: max-content;
+    max-width: 65vw;
+    z-index: 8;
+    box-shadow: 0 4px 12px rgba(0,0,0,.25);
+  }
 
   .speak-btn {
     flex-shrink: 0;
-    width: 42px; height: 42px;
+    width: 44px; height: 44px;
     border-radius: 50%;
     border: none;
     background: var(--orange);
@@ -253,13 +333,14 @@
   .no-results { text-align: center; color: var(--mid); padding: 30px 10px; font-size: .9rem; }
 
   /* ---------- Dialogues ---------- */
-  .dialogue { margin-top: 16px; }
-  .dialogue-card { background: var(--cream); border: 1px solid var(--border); border-radius: 12px; padding: 14px; }
-  .dialogue-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
-  .dialogue-title { font-size: 1.05rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  .dialogue { margin-top: 26px; }
+  .dialogue:first-child { margin-top: 0; }
+  .dialogue-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .dialogue-title { font-family: Georgia, 'Times New Roman', serif; font-size: 1.15rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
   .play-all {
     flex-shrink: 0;
-    padding: 8px 14px;
+    min-height: 44px;
+    padding: 8px 16px;
     border-radius: 999px;
     border: none;
     background: var(--navy);
@@ -271,26 +352,74 @@
   .play-all:active { background: var(--navy-2); }
 
   .line {
-    display: flex; gap: 10px; align-items: flex-start;
-    padding: 9px 8px;
-    border-radius: 8px;
+    display: flex; gap: 10px; align-items: center;
+    padding: 11px 2px;
   }
-  .line + .line { border-top: 1px dashed var(--border); }
-  .line-speaker { flex-shrink: 0; width: 64px; font-size: .72rem; font-weight: 700; color: var(--saffron); text-transform: uppercase; letter-spacing: .03em; padding-top: 2px; }
+  .line + .line { border-top: 1px solid var(--border); }
+  .line-speaker { flex-shrink: 0; width: 64px; font-size: .72rem; font-weight: 700; color: var(--saffron); text-transform: uppercase; letter-spacing: .03em; }
   .line-body { flex: 1; min-width: 0; }
-  .line-es { font-weight: 600; font-size: .95rem; }
-  .line-en { font-size: .8rem; color: var(--mid); margin-top: 1px; }
+  .line-es { font-family: Georgia, 'Times New Roman', serif; font-weight: 600; font-size: 1.05rem; }
+  .line-en { font-size: .8rem; color: var(--mid); margin-top: 2px; }
   .line-speak {
     flex-shrink: 0;
-    width: 32px; height: 32px;
+    width: 40px; height: 40px;
     border-radius: 50%;
-    border: none;
-    background: var(--card);
     border: 1px solid var(--border);
+    background: none;
     color: var(--orange-d);
     cursor: pointer;
     font-size: .9rem;
   }
+
+  /* ---------- Grammar tab ---------- */
+  .grammar-card { margin-bottom: 26px; }
+  .grammar-card:last-child { margin-bottom: 0; }
+  .grammar-card h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 1.15rem; color: var(--navy); margin-bottom: 9px; }
+  html.dark .grammar-card h3 { color: var(--ink); }
+  .grammar-card p { font-size: .89rem; line-height: 1.6; color: var(--ink); margin-bottom: 9px; }
+  .grammar-card p:last-child { margin-bottom: 0; }
+  .grammar-card em { color: var(--orange-d); font-style: normal; font-weight: 700; }
+  .grammar-list { margin: 8px 0 0; padding-left: 18px; }
+  .grammar-list li { font-size: .87rem; line-height: 1.6; margin-bottom: 7px; color: var(--ink); }
+  .grammar-sub { font-size: .82rem; color: var(--mid); margin-top: 10px; }
+
+  .ex-inline {
+    display: inline-flex; align-items: center; gap: 2px;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 700; color: var(--ink); white-space: nowrap;
+  }
+  .ex-speak {
+    border: none; background: none; cursor: pointer;
+    font-size: .8rem; width: 34px; height: 34px;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .ex-gloss { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: .78rem; font-weight: 400; color: var(--mid); margin-right: 8px; }
+
+  .pair-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; margin-top: 12px; }
+  .pair {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    border-bottom: 1px solid var(--border);
+    padding: 8px 2px;
+    min-height: 44px;
+  }
+  .pair button { border: none; background: none; font-family: Georgia, 'Times New Roman', serif; font-weight: 700; font-size: 1rem; color: var(--ink); cursor: pointer; padding: 6px 0; }
+  .pair span { font-size: .76rem; color: var(--mid); flex-shrink: 0; }
+
+  .verb-table { margin-top: 10px; border-top: 1px solid var(--border); }
+  .verb-row { display: grid; grid-template-columns: 76px 1fr 1fr 1fr; min-height: 40px; align-items: center; }
+  .verb-row + .verb-row { border-top: 1px solid var(--border); }
+  .verb-row span { padding: 8px 4px; font-size: .85rem; font-family: Georgia, 'Times New Roman', serif; }
+  .verb-row span:first-child { font-size: .68rem; line-height: 1.2; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+  .verb-head { background: none; color: var(--navy); font-weight: 700; border-bottom: 2px solid var(--navy); }
+  html.dark .verb-head { color: var(--ink); border-bottom-color: var(--saffron); }
+  .verb-head span { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important; font-size: .8rem !important; }
+  .verb-row:not(.verb-head) span:first-child { color: var(--saffron); font-weight: 700; }
+
+  .ref-table { margin-top: 10px; border-top: 1px solid var(--border); }
+  .ref-row { display: grid; grid-template-columns: 76px 1fr auto; gap: 8px; align-items: center; padding: 9px 2px; min-height: 40px; }
+  .ref-row + .ref-row { border-top: 1px solid var(--border); }
+  .ref-key { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; color: var(--saffron); font-size: .88rem; }
+  .ref-desc { font-size: .8rem; color: var(--mid); }
 
   footer {
     max-width: 560px; margin: 22px auto 0; padding: 0 20px;
@@ -299,10 +428,14 @@
 
   @media (max-width: 380px) {
     .line-speaker { width: 52px; font-size: .66rem; }
-    .header h1 { font-size: 1.25rem; }
-    .header p.tagline { font-size: .76rem; }
-    .voice-toggle { font-size: 0; padding: 7px 10px; }
-    .voice-toggle::before { content: '🔊'; font-size: 1rem; }
+    .header h1 { font-size: 1.2rem; }
+    .header p.tagline { font-size: .74rem; }
+    .header-controls { gap: 4px; }
+    .lang-btn { padding: 12px 7px; font-size: .7rem; }
+    .tab-btn { font-size: .68rem; padding: 0 1px 11px; }
+    .verb-row { grid-template-columns: 64px 1fr 1fr 1fr !important; }
+    .verb-row span:first-child { font-size: .62rem; }
+    .ref-row { grid-template-columns: 64px 1fr auto; }
   }
 </style>
 </head>
@@ -313,10 +446,24 @@
     <div class="azahar" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
     <div class="header-title">
       <h1>Mi Cuaderno Valenciano</h1>
-      <p class="tagline">Español para el día a día — restaurantes, mercado y la calle</p>
+      <p class="tagline" data-i18n="tagline">Español para el día a día — restaurantes, mercado y la calle</p>
     </div>
-    <button class="voice-toggle" onclick="toggleVoicePanel()">🔊 Voz</button>
+    <div class="header-controls">
+      <div class="lang-toggle" role="group" aria-label="Idioma / Language">
+        <button class="lang-btn active" id="lang-es" onclick="setLang('es')">ES</button>
+        <button class="lang-btn" id="lang-en" onclick="setLang('en')">EN</button>
+      </div>
+      <button class="icon-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Modo oscuro / Dark mode">🌙</button>
+      <button class="icon-toggle" onclick="toggleVoicePanel()" aria-label="Voz / Voice">🔊</button>
+    </div>
   </div>
+</div>
+
+<div class="speed-bar">
+  <span class="speed-icon" aria-hidden="true">🐢</span>
+  <span class="speed-label" data-i18n="speedLabel">Velocidad</span>
+  <input type="range" id="speed-slider" min="0.5" max="1.15" step="0.05" value="0.9" oninput="onSpeedChange(this.value)" aria-label="Velocidad de la voz">
+  <span class="speed-value" id="speed-value">90%</span>
 </div>
 
 <div class="voice-panel" id="voice-panel" hidden>
@@ -324,20 +471,22 @@
 </div>
 
 <div class="tabs">
-  <button class="tab-btn active" id="tab-frases" onclick="showTab('frases')">Frases</button>
-  <button class="tab-btn" id="tab-dialogos" onclick="showTab('dialogos')">Diálogos</button>
+  <button class="tab-btn active" id="tab-frases" data-i18n="tabFrases" onclick="showTab('frases')">Frases</button>
+  <button class="tab-btn" id="tab-dialogos" data-i18n="tabDialogos" onclick="showTab('dialogos')">Diálogos</button>
+  <button class="tab-btn" id="tab-pronunciacion" data-i18n="tabPronunciacion" onclick="showTab('pronunciacion')">Sonidos</button>
+  <button class="tab-btn" id="tab-gramatica" data-i18n="tabGramatica" onclick="showTab('gramatica')">Gramática</button>
 </div>
 
 <!-- FRASES PANEL -->
 <div class="panel" id="panel-frases">
   <div class="card-surface">
 
-    <div class="tip">
+    <div class="tip" data-i18n-html="tipPronunciation">
       <strong>Cómo suena el español de España:</strong> la "c" (ante e/i) y la "z" suenan como la "th" inglesa de <em>think</em> — <em>gracias</em> ≈ "GRA-thyas". La "j" y la "g" suaves son un sonido gutural, como aclarar la garganta. La "ll" suena como "y". Toca 🔊 para oírlo de verdad.
     </div>
 
     <div class="search-wrap">
-      <input type="search" id="search-input" placeholder="Buscar una frase… (p. ej. 'cuenta')" oninput="onSearch(this.value)" autocomplete="off">
+      <input type="search" id="search-input" data-i18n-placeholder="searchPlaceholder" placeholder="Buscar una frase… (p. ej. 'cuenta')" oninput="onSearch(this.value)" autocomplete="off">
     </div>
 
     <div class="cats" id="cats-row"></div>
@@ -349,12 +498,230 @@
 <!-- DIALOGOS PANEL -->
 <div class="panel" id="panel-dialogos" hidden>
   <div class="card-surface">
-    <div class="tip">Toca <strong>▶ Reproducir</strong> para escuchar el diálogo entero, línea por línea, o toca el altavoz de una sola frase.</div>
+    <div class="tip" data-i18n-html="dialogueTip">Toca <strong>▶ Reproducir</strong> para escuchar el diálogo entero, línea por línea, o toca el altavoz de una sola frase.</div>
     <div id="dialogue-list"></div>
   </div>
 </div>
 
-<footer>
+<!-- PRONUNCIACION PANEL -->
+<div class="panel" id="panel-pronunciacion" hidden>
+  <div class="card-surface">
+
+    <div class="grammar-card">
+      <h3 data-i18n="sonVocales">🔤 Vocales</h3>
+      <p>Five vowel sounds, always pure — no gliding, no reduction to a schwa in unstressed syllables.</p>
+      <div class="ref-table">
+        <div class="ref-row"><span class="ref-key">a</span><span class="ref-desc">father</span><span class="ex-gloss">house</span><span class="ex-inline">casa <button class="ex-speak" onclick="speak('casa', this)">🔊</button></span></div>
+        <div class="ref-row"><span class="ref-key">e</span><span class="ref-desc">bed</span><span class="ex-gloss">table</span><span class="ex-inline">mesa <button class="ex-speak" onclick="speak('mesa', this)">🔊</button></span></div>
+        <div class="ref-row"><span class="ref-key">i</span><span class="ref-desc">see</span><span class="ex-gloss">yes</span><span class="ex-inline">sí <button class="ex-speak" onclick="speak('sí', this)">🔊</button></span></div>
+        <div class="ref-row"><span class="ref-key">o</span><span class="ref-desc">go, no glide</span><span class="ex-gloss">two</span><span class="ex-inline">dos <button class="ex-speak" onclick="speak('dos', this)">🔊</button></span></div>
+        <div class="ref-row"><span class="ref-key">u</span><span class="ref-desc">food</span><span class="ex-gloss">you</span><span class="ex-inline">tú <button class="ex-speak" onclick="speak('tú', this)">🔊</button></span></div>
+      </div>
+    </div>
+
+    <div class="grammar-card">
+      <h3 data-i18n="sonConsonantes">👄 Consonantes clave</h3>
+      <div class="ref-table">
+        <div class="ref-row"><span class="ref-key">c, z</span><span class="ref-desc">"th" in think (before e/i for c)</span><span class="ex-gloss">thanks</span><span class="ex-inline">gracias <button class="ex-speak" onclick="speak('gracias', this)">🔊</button></span></div>
+        <div class="ref-row"><span class="ref-key">j, g</span><span class="ref-desc">throaty h (g before e/i only)</span><span class="ex-gloss">ham</span><span class="ex-inline">jamón <button class="ex-speak" onclick="speak('jamón', this)">🔊</button></span></div>
+        <div class="ref-row"><span class="ref-key">ll, y</span><span class="ref-desc">y</span><span class="ex-gloss">street</span><span class="ex-inline">calle <button class="ex-speak" onclick="speak('calle', this)">🔊</button></span></div>
+        <div class="ref-row"><span class="ref-key">ñ</span><span class="ref-desc">ny, as in canyon</span><span class="ex-gloss">year</span><span class="ex-inline">año <button class="ex-speak" onclick="speak('año', this)">🔊</button></span></div>
+        <div class="ref-row"><span class="ref-key">h</span><span class="ref-desc">always silent</span><span class="ex-gloss">hello</span><span class="ex-inline">hola <button class="ex-speak" onclick="speak('hola', this)">🔊</button></span></div>
+        <div class="ref-row"><span class="ref-key">qu</span><span class="ref-desc">k, never kw</span><span class="ex-gloss">what</span><span class="ex-inline">qué <button class="ex-speak" onclick="speak('qué', this)">🔊</button></span></div>
+        <div class="ref-row"><span class="ref-key">r</span><span class="ref-desc">single tap between vowels</span><span class="ex-gloss">but</span><span class="ex-inline">pero <button class="ex-speak" onclick="speak('pero', this)">🔊</button></span></div>
+        <div class="ref-row"><span class="ref-key">rr</span><span class="ref-desc">rolled — also word-initial r</span><span class="ex-gloss">dog</span><span class="ex-inline">perro <button class="ex-speak" onclick="speak('perro', this)">🔊</button></span></div>
+        <div class="ref-row"><span class="ref-key">b, v</span><span class="ref-desc">identical — no English b/v split</span><span class="ex-gloss">wine</span><span class="ex-inline">vino <button class="ex-speak" onclick="speak('vino', this)">🔊</button></span></div>
+        <div class="ref-row"><span class="ref-key">d</span><span class="ref-desc">soft, near "th" in this between vowels</span><span class="ex-gloss">nothing</span><span class="ex-inline">nada <button class="ex-speak" onclick="speak('nada', this)">🔊</button></span></div>
+      </div>
+    </div>
+
+    <div class="grammar-card">
+      <h3 data-i18n="sonAcentuacion">🎯 Acentuación</h3>
+      <p>Words ending in a vowel, n, or s stress the second-to-last syllable by default. Anything else stresses the last syllable. A written accent marks any exception — that's its only job — and it also splits pairs of words that would otherwise be identical:</p>
+      <div class="ref-table">
+        <div class="ref-row"><span class="ref-key">tú / tu</span><span class="ref-desc">you / your</span></div>
+        <div class="ref-row"><span class="ref-key">él / el</span><span class="ref-desc">he / the</span></div>
+        <div class="ref-row"><span class="ref-key">sí / si</span><span class="ref-desc">yes / if</span></div>
+        <div class="ref-row"><span class="ref-key">más / mas</span><span class="ref-desc">more / but (literary)</span></div>
+        <div class="ref-row"><span class="ref-key">sé / se</span><span class="ref-desc">I know / -self, -selves</span></div>
+      </div>
+    </div>
+
+    <div class="grammar-card">
+      <h3 data-i18n="sonPares">👂 Pares mínimos</h3>
+      <p class="grammar-sub">The rolled r is the single biggest giveaway of a non-native accent — worth training deliberately.</p>
+      <div class="pair-grid">
+        <div class="pair"><button onclick="speak('pero', this)">pero 🔊</button><span>but</span></div>
+        <div class="pair"><button onclick="speak('perro', this)">perro 🔊</button><span>dog</span></div>
+        <div class="pair"><button onclick="speak('casa', this)">casa 🔊</button><span>house</span></div>
+        <div class="pair"><button onclick="speak('caza', this)">caza 🔊</button><span>hunt</span></div>
+        <div class="pair"><button onclick="speak('caro', this)">caro 🔊</button><span>expensive</span></div>
+        <div class="pair"><button onclick="speak('carro', this)">carro 🔊</button><span>cart</span></div>
+        <div class="pair"><button onclick="speak('caña', this)">caña 🔊</button><span>small beer</span></div>
+        <div class="pair"><button onclick="speak('cana', this)">cana 🔊</button><span>grey hair</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- GRAMATICA PANEL -->
+<div class="panel" id="panel-gramatica" hidden>
+  <div class="card-surface">
+
+    <div class="grammar-card">
+      <h3 data-i18n="gramPronombres">🧍 Pronombres personales</h3>
+      <div class="ref-table">
+        <div class="ref-row"><span class="ref-key">yo</span><span class="ref-desc">I</span></div>
+        <div class="ref-row"><span class="ref-key">tú</span><span class="ref-desc">you, informal</span></div>
+        <div class="ref-row"><span class="ref-key">él / ella / usted</span><span class="ref-desc">he / she / you, formal</span></div>
+        <div class="ref-row"><span class="ref-key">nosotros / -as</span><span class="ref-desc">we</span></div>
+        <div class="ref-row"><span class="ref-key">vosotros / -as</span><span class="ref-desc">you all, informal — Spain</span></div>
+        <div class="ref-row"><span class="ref-key">ellos / ellas / ustedes</span><span class="ref-desc">they / you all, formal</span></div>
+      </div>
+      <p class="grammar-sub">The subject pronoun is usually dropped — the verb ending already shows who's acting. <span class="ex-gloss">I speak Spanish</span><span class="ex-inline">Hablo español <button class="ex-speak" onclick="speak('Hablo español', this)">🔊</button></span>, not <em>yo hablo español</em>, unless the subject needs emphasis or contrast.</p>
+    </div>
+
+    <div class="grammar-card">
+      <h3 data-i18n="gramSustantivos">🏷️ Sustantivos, género y artículos</h3>
+      <p>Every noun is masculine or feminine — usually -o masculine, -a feminine, with exceptions: <em>el día</em>, <em>el mapa</em>, <em>la mano</em>, <em>la foto</em>.</p>
+      <div class="ref-table">
+        <div class="ref-row"><span class="ref-key">el / la</span><span class="ref-desc">the — singular, m. / f.</span></div>
+        <div class="ref-row"><span class="ref-key">los / las</span><span class="ref-desc">the — plural, m. / f.</span></div>
+        <div class="ref-row"><span class="ref-key">un / una</span><span class="ref-desc">a, an — m. / f.</span></div>
+        <div class="ref-row"><span class="ref-key">unos / unas</span><span class="ref-desc">some — m. / f.</span></div>
+      </div>
+      <p>
+        <span class="ex-gloss">the coffee</span><span class="ex-inline">el café <button class="ex-speak" onclick="speak('el café', this)">🔊</button></span>
+        <span class="ex-gloss">the table</span><span class="ex-inline">la mesa <button class="ex-speak" onclick="speak('la mesa', this)">🔊</button></span>
+        <span class="ex-gloss">the coffees</span><span class="ex-inline">los cafés <button class="ex-speak" onclick="speak('los cafés', this)">🔊</button></span>
+        <span class="ex-gloss">the tables</span><span class="ex-inline">las mesas <button class="ex-speak" onclick="speak('las mesas', this)">🔊</button></span>
+      </p>
+    </div>
+
+    <div class="grammar-card">
+      <h3 data-i18n="gramAdjetivos">🎨 Adjetivos</h3>
+      <p>Adjectives agree in gender and number with the noun, and normally follow it:
+        <span class="ex-gloss">a small coffee</span><span class="ex-inline">un café pequeño <button class="ex-speak" onclick="speak('un café pequeño', this)">🔊</button></span> /
+        <span class="ex-gloss">a small table</span><span class="ex-inline">una mesa pequeña <button class="ex-speak" onclick="speak('una mesa pequeña', this)">🔊</button></span> /
+        <span class="ex-gloss">some small tables</span><span class="ex-inline">unas mesas pequeñas <button class="ex-speak" onclick="speak('unas mesas pequeñas', this)">🔊</button></span>.</p>
+      <p>A few common adjectives shorten before a masculine singular noun — <em>bueno → buen</em>, <em>malo → mal</em> — and <em>grande</em> shortens to <em>gran</em> before either gender and shifts meaning:
+        <span class="ex-gloss">a good friend</span><span class="ex-inline">un buen amigo <button class="ex-speak" onclick="speak('un buen amigo', this)">🔊</button></span>,
+        <span class="ex-gloss">a bad day</span><span class="ex-inline">un mal día <button class="ex-speak" onclick="speak('un mal día', this)">🔊</button></span>,
+        <span class="ex-gloss">a great city</span><span class="ex-inline">una gran ciudad <button class="ex-speak" onclick="speak('una gran ciudad', this)">🔊</button></span> vs
+        <span class="ex-gloss">a physically big city</span><span class="ex-inline">una ciudad grande <button class="ex-speak" onclick="speak('una ciudad grande', this)">🔊</button></span>.</p>
+    </div>
+
+    <div class="grammar-card">
+      <h3 data-i18n="gramPosesivos">🔑 Posesivos</h3>
+      <p>Agree in number with the thing owned, not the owner — <em>nuestro/vuestro</em> also agree in gender.</p>
+      <div class="ref-table">
+        <div class="ref-row"><span class="ref-key">mi / mis</span><span class="ref-desc">my</span></div>
+        <div class="ref-row"><span class="ref-key">tu / tus</span><span class="ref-desc">your, informal</span></div>
+        <div class="ref-row"><span class="ref-key">su / sus</span><span class="ref-desc">his, her, your (formal), their</span></div>
+        <div class="ref-row"><span class="ref-key">nuestro/-a/-os/-as</span><span class="ref-desc">our</span></div>
+        <div class="ref-row"><span class="ref-key">vuestro/-a/-os/-as</span><span class="ref-desc">your all, informal — Spain</span></div>
+      </div>
+      <p>
+        <span class="ex-gloss">my coffee</span><span class="ex-inline">mi café <button class="ex-speak" onclick="speak('mi café', this)">🔊</button></span>
+        <span class="ex-gloss">our table</span><span class="ex-inline">nuestra mesa <button class="ex-speak" onclick="speak('nuestra mesa', this)">🔊</button></span>
+      </p>
+    </div>
+
+    <div class="grammar-card">
+      <h3 data-i18n="gramSerEstar">⚖️ Ser vs. Estar</h3>
+      <p><strong>Ser</strong> — identity, origin, characteristics, time. <strong>Estar</strong> — location, temporary states and conditions. Both mean "to be"; the choice between them carries real meaning.</p>
+      <div class="verb-table">
+        <div class="verb-row verb-head" style="grid-template-columns: 76px 1fr 1fr;"><span></span><span>ser</span><span>estar</span></div>
+        <div class="verb-row" style="grid-template-columns: 76px 1fr 1fr;"><span>yo</span><span>soy</span><span>estoy</span></div>
+        <div class="verb-row" style="grid-template-columns: 76px 1fr 1fr;"><span>tú</span><span>eres</span><span>estás</span></div>
+        <div class="verb-row" style="grid-template-columns: 76px 1fr 1fr;"><span>él/ella/Ud.</span><span>es</span><span>está</span></div>
+        <div class="verb-row" style="grid-template-columns: 76px 1fr 1fr;"><span>nosotros/-as</span><span>somos</span><span>estamos</span></div>
+        <div class="verb-row" style="grid-template-columns: 76px 1fr 1fr;"><span>vosotros/-as</span><span>sois</span><span>estáis</span></div>
+        <div class="verb-row" style="grid-template-columns: 76px 1fr 1fr;"><span>ellos/Uds.</span><span>son</span><span>están</span></div>
+      </div>
+      <p>
+        <span class="ex-gloss">I'm from Dublin</span><span class="ex-inline">Soy de Dublín <button class="ex-speak" onclick="speak('Soy de Dublín', this)">🔊</button></span> — origin.
+        <span class="ex-gloss">I'm in Valencia</span><span class="ex-inline">Estoy en Valencia <button class="ex-speak" onclick="speak('Estoy en Valencia', this)">🔊</button></span> — location.
+        <span class="ex-gloss">He's tall</span><span class="ex-inline">Es alto <button class="ex-speak" onclick="speak('Es alto', this)">🔊</button></span> — characteristic.
+        <span class="ex-gloss">He's tired</span><span class="ex-inline">Está cansado <button class="ex-speak" onclick="speak('Está cansado', this)">🔊</button></span> — temporary state.
+      </p>
+    </div>
+
+    <div class="grammar-card">
+      <h3 data-i18n="gramVerbosReg">🔧 Verbos regulares en presente</h3>
+      <p>Three families by infinitive ending: -ar, -er, -ir.</p>
+      <div class="verb-table">
+        <div class="verb-row verb-head"><span></span><span>hablar</span><span>comer</span><span>vivir</span></div>
+        <div class="verb-row" style="grid-template-columns: 76px 1fr 1fr 1fr; font-size:.68rem; color:var(--mid);"><span></span><span>to speak</span><span>to eat</span><span>to live</span></div>
+        <div class="verb-row"><span>yo</span><span>hablo</span><span>como</span><span>vivo</span></div>
+        <div class="verb-row"><span>tú</span><span>hablas</span><span>comes</span><span>vives</span></div>
+        <div class="verb-row"><span>él/ella/Ud.</span><span>habla</span><span>come</span><span>vive</span></div>
+        <div class="verb-row"><span>nosotros/-as</span><span>hablamos</span><span>comemos</span><span>vivimos</span></div>
+        <div class="verb-row"><span>vosotros/-as</span><span>habláis</span><span>coméis</span><span>vivís</span></div>
+        <div class="verb-row"><span>ellos/Uds.</span><span>hablan</span><span>comen</span><span>viven</span></div>
+      </div>
+    </div>
+
+    <div class="grammar-card">
+      <h3 data-i18n="gramTenerQuererPoder">⚡ Tener, querer, poder</h3>
+      <p>The three irregular verbs doing the most work in everyday Spanish — <em>tener</em> (to have), <em>querer</em> (to want), <em>poder</em> (to be able to / can) — all stem-changing.</p>
+      <div class="verb-table">
+        <div class="verb-row verb-head"><span></span><span>tener</span><span>querer</span><span>poder</span></div>
+        <div class="verb-row"><span>yo</span><span>tengo</span><span>quiero</span><span>puedo</span></div>
+        <div class="verb-row"><span>tú</span><span>tienes</span><span>quieres</span><span>puedes</span></div>
+        <div class="verb-row"><span>él/ella/Ud.</span><span>tiene</span><span>quiere</span><span>puede</span></div>
+        <div class="verb-row"><span>nosotros/-as</span><span>tenemos</span><span>queremos</span><span>podemos</span></div>
+        <div class="verb-row"><span>vosotros/-as</span><span>tenéis</span><span>queréis</span><span>podéis</span></div>
+        <div class="verb-row"><span>ellos/Uds.</span><span>tienen</span><span>quieren</span><span>pueden</span></div>
+      </div>
+      <p class="grammar-sub">Spanish uses <em>tener</em> where English uses "to be" for several fixed expressions:</p>
+      <div class="ref-table">
+        <div class="ref-row"><span class="ref-key">tener hambre / sed</span><span class="ref-desc">to be hungry / thirsty</span></div>
+        <div class="ref-row"><span class="ref-key">tener frío / calor</span><span class="ref-desc">to be cold / hot</span></div>
+        <div class="ref-row"><span class="ref-key">tener prisa</span><span class="ref-desc">to be in a hurry</span></div>
+        <div class="ref-row"><span class="ref-key">tener razón</span><span class="ref-desc">to be right</span></div>
+        <div class="ref-row"><span class="ref-key">tener … años</span><span class="ref-desc">to be … years old</span></div>
+      </div>
+      <p><span class="ex-gloss">I'm thirty years old</span><span class="ex-inline">Tengo treinta años <button class="ex-speak" onclick="speak('Tengo treinta años', this)">🔊</button></span></p>
+    </div>
+
+    <div class="grammar-card">
+      <h3 data-i18n="gramPreguntas">❓ Preguntas</h3>
+      <div class="ref-table">
+        <div class="ref-row"><span class="ref-key">qué</span><span class="ref-desc">what</span><span class="ex-gloss">What do you want?</span><span class="ex-inline">¿Qué quieres? <button class="ex-speak" onclick="speak('¿Qué quieres?', this)">🔊</button></span></div>
+        <div class="ref-row"><span class="ref-key">quién / quiénes</span><span class="ref-desc">who</span><span class="ex-gloss">Who is it?</span><span class="ex-inline">¿Quién es? <button class="ex-speak" onclick="speak('¿Quién es?', this)">🔊</button></span></div>
+        <div class="ref-row"><span class="ref-key">cuándo</span><span class="ref-desc">when</span><span class="ex-gloss">When does it arrive?</span><span class="ex-inline">¿Cuándo llega? <button class="ex-speak" onclick="speak('¿Cuándo llega?', this)">🔊</button></span></div>
+        <div class="ref-row"><span class="ref-key">dónde</span><span class="ref-desc">where</span><span class="ex-gloss">Where is it?</span><span class="ex-inline">¿Dónde está? <button class="ex-speak" onclick="speak('¿Dónde está?', this)">🔊</button></span></div>
+        <div class="ref-row"><span class="ref-key">cómo</span><span class="ref-desc">how</span><span class="ex-gloss">What's your name?</span><span class="ex-inline">¿Cómo te llamas? <button class="ex-speak" onclick="speak('¿Cómo te llamas?', this)">🔊</button></span></div>
+        <div class="ref-row"><span class="ref-key">por qué</span><span class="ref-desc">why</span><span class="ex-gloss">Why not?</span><span class="ex-inline">¿Por qué no? <button class="ex-speak" onclick="speak('¿Por qué no?', this)">🔊</button></span></div>
+        <div class="ref-row"><span class="ref-key">cuánto/-a/-os/-as</span><span class="ref-desc">how much / many</span><span class="ex-gloss">How much does it cost?</span><span class="ex-inline">¿Cuánto cuesta? <button class="ex-speak" onclick="speak('¿Cuánto cuesta?', this)">🔊</button></span></div>
+        <div class="ref-row"><span class="ref-key">cuál / cuáles</span><span class="ref-desc">which, what</span><span class="ex-gloss">Which do you prefer?</span><span class="ex-inline">¿Cuál prefieres? <button class="ex-speak" onclick="speak('¿Cuál prefieres?', this)">🔊</button></span></div>
+      </div>
+      <p class="grammar-sub">Written questions open with an inverted mark, ¿…? — that mark, not word order, is what signals a question is coming.</p>
+    </div>
+
+    <div class="grammar-card">
+      <h3 data-i18n="gramNegacion">🚫 Negación</h3>
+      <p><em>No</em> goes directly before the verb: <span class="ex-gloss">I don't want coffee</span><span class="ex-inline">No quiero café <button class="ex-speak" onclick="speak('No quiero café', this)">🔊</button></span>. Unlike English, a second negative word is required, not avoided: <span class="ex-gloss">I don't want anything</span><span class="ex-inline">No quiero nada <button class="ex-speak" onclick="speak('No quiero nada', this)">🔊</button></span> — literally "I don't want nothing."</p>
+      <div class="ref-table">
+        <div class="ref-row"><span class="ref-key">algo</span><span class="ref-desc">something → <em>nada</em>, nothing</span></div>
+        <div class="ref-row"><span class="ref-key">alguien</span><span class="ref-desc">someone → <em>nadie</em>, no one</span></div>
+        <div class="ref-row"><span class="ref-key">alguno/-a</span><span class="ref-desc">some → <em>ninguno/-a</em>, none</span></div>
+        <div class="ref-row"><span class="ref-key">siempre</span><span class="ref-desc">always → <em>nunca</em>, never</span></div>
+        <div class="ref-row"><span class="ref-key">también</span><span class="ref-desc">also → <em>tampoco</em>, neither</span></div>
+      </div>
+    </div>
+
+    <div class="grammar-card">
+      <h3 data-i18n="gramCondicional">🙏 El condicional, para pedir con cortesía</h3>
+      <p>The conditional (<em>podría</em>, <em>gustaría</em>) and a courtesy use of the subjunctive (<em>quisiera</em>) soften a request. <span class="ex-gloss">I want a coffee</span><span class="ex-inline">Quiero un café <button class="ex-speak" onclick="speak('Quiero un café', this)">🔊</button></span> vs <span class="ex-gloss">I would like a coffee</span><span class="ex-inline">Quisiera un café <button class="ex-speak" onclick="speak('Quisiera un café', this)">🔊</button></span> — see the Cortesía category under Frases for more pairs.</p>
+    </div>
+
+  </div>
+</div>
+
+<footer data-i18n="footer">
   Funciona sin conexión una vez cargada. La calidad de la voz depende de las voces en español instaladas en tu teléfono.
 </footer>
 
@@ -362,15 +729,16 @@
 /* ===================== DATA ===================== */
 
 const categories = [
-  { id: 'saludos',       label: 'Saludos',        icon: '👋' },
-  { id: 'sobremi',       label: 'Sobre mí',       icon: '🧑\u200d🏫' },
-  { id: 'malentendidos', label: 'Malentendidos',  icon: '🤝' },
-  { id: 'cafe',          label: 'Café y bares',   icon: '☕' },
-  { id: 'restaurantes',  label: 'Restaurantes',   icon: '🍽️' },
-  { id: 'mercado',       label: 'Mercado',        icon: '🍊' },
-  { id: 'direcciones',   label: 'Moverse',        icon: '🧭' },
-  { id: 'numeros',       label: 'Números',        icon: '🔢' },
-  { id: 'utiles',        label: 'Frases útiles',  icon: '💬' },
+  { id: 'saludos',       label: { es: 'Saludos',       en: 'Greetings' },      icon: '👋' },
+  { id: 'sobremi',       label: { es: 'Sobre mí',      en: 'About me' },       icon: '🧑\u200d🏫' },
+  { id: 'malentendidos', label: { es: 'Malentendidos', en: 'Misunderstandings' }, icon: '🤝' },
+  { id: 'cortesia',      label: { es: 'Cortesía',      en: 'Politeness' },     icon: '🙏' },
+  { id: 'cafe',          label: { es: 'Café y bares',  en: 'Coffee & bars' },  icon: '☕' },
+  { id: 'restaurantes',  label: { es: 'Restaurantes',  en: 'Restaurants' },    icon: '🍽️' },
+  { id: 'mercado',       label: { es: 'Mercado',       en: 'Market' },         icon: '🍊' },
+  { id: 'direcciones',   label: { es: 'Moverse',       en: 'Getting around' }, icon: '🧭' },
+  { id: 'numeros',       label: { es: 'Números',       en: 'Numbers' },        icon: '🔢' },
+  { id: 'utiles',        label: { es: 'Frases útiles', en: 'Useful phrases' }, icon: '💬' },
 ];
 
 const phrases = [
@@ -416,6 +784,17 @@ const phrases = [
   { cat:'malentendidos', es:'No pasa nada, sigamos', en:'No worries, let\u2019s carry on' },
   { cat:'malentendidos', es:'Gracias por su paciencia', en:'Thank you for your patience' },
 
+  // Cortesía
+  { cat:'cortesia', es:'Quiero un café', en:'I want a coffee', note:'Directo — bien entre amigos, un poco brusco con desconocidos' },
+  { cat:'cortesia', es:'Quisiera un café', en:'I would like a coffee', note:'La forma clásica y más suave de pedir' },
+  { cat:'cortesia', es:'Me gustaría un café', en:'I would like a coffee', note:'Igual de natural que \u201cquisiera\u201d' },
+  { cat:'cortesia', es:'¿Puede traerme la cuenta?', en:'Can you bring me the bill?', note:'Ya es cortés' },
+  { cat:'cortesia', es:'¿Podría traerme la cuenta?', en:'Could you bring me the bill?', note:'Aún más suave — como el \u201ccould\u201d inglés o el Konjunktiv alemán' },
+  { cat:'cortesia', es:'¿Tiene mesa para dos?', en:'Do you have a table for two?' },
+  { cat:'cortesia', es:'¿Tendría mesa para dos?', en:'Would you have a table for two?', note:'Condicional — muy cortés para reservar' },
+  { cat:'cortesia', es:'¿Le importa si abro la ventana?', en:'Do you mind if I open the window?' },
+  { cat:'cortesia', es:'¿Le importaría ayudarme un momento?', en:'Would you mind helping me for a moment?', note:'Para peticiones más grandes' },
+
   // Café y bares
   { cat:'cafe', es:'¿Me pone un café con leche?', en:'Could you get me a coffee with milk?', note:'Common way to order' },
   { cat:'cafe', es:'Un cortado', en:'Espresso with a splash of milk' },
@@ -427,6 +806,8 @@ const phrases = [
   { cat:'cafe', es:'¿Se puede pagar con tarjeta?', en:'Can I pay by card?' },
   { cat:'cafe', es:'La cuenta, por favor', en:'The bill, please' },
   { cat:'cafe', es:'Está buenísimo', en:'It\u2019s really good' },
+  { cat:'cafe', es:'Un café grande', en:'A large coffee', note:'Adjetivo después del sustantivo — ver Gramática' },
+  { cat:'cafe', es:'Un café pequeño', en:'A small coffee', note:'Igual que arriba: sustantivo + adjetivo' },
 
   // Restaurantes
   { cat:'restaurantes', es:'Una mesa para dos, por favor', en:'A table for two, please' },
@@ -434,7 +815,11 @@ const phrases = [
   { cat:'restaurantes', es:'¿Qué lleva este plato?', en:'What\u2019s in this dish?' },
   { cat:'restaurantes', es:'Soy alérgico/a a…', en:'I\u2019m allergic to…' },
   { cat:'restaurantes', es:'Sin gluten / Sin lactosa', en:'Gluten-free / Dairy-free' },
-  { cat:'restaurantes', es:'Soy vegetariano/a', en:'I\u2019m vegetarian' },
+  { cat:'restaurantes', es:'Soy vegetariano/a', en:'I\u2019m vegetarian', note:'El adjetivo concuerda con tu género — ver Gramática' },
+  { cat:'restaurantes', es:'Soy vegano/a', en:'I\u2019m vegan' },
+  { cat:'restaurantes', es:'¿Lleva carne o pescado?', en:'Does it have meat or fish in it?' },
+  { cat:'restaurantes', es:'¿Lleva huevo?', en:'Does it have egg in it?' },
+  { cat:'restaurantes', es:'¿Tienen algo de temporada?', en:'Do you have anything seasonal?' },
   { cat:'restaurantes', es:'Para compartir', en:'To share' },
   { cat:'restaurantes', es:'¿Está picante?', en:'Is it spicy?' },
   { cat:'restaurantes', es:'Estaba delicioso', en:'It was delicious' },
@@ -482,10 +867,89 @@ const phrases = [
   { cat:'utiles', es:'¡Qué bien!', en:'How great!' },
 ];
 
+/* Word-level glosses for tap-to-translate — covers every distinct word
+   appearing in the phrases array above (Frases tab only). */
+const WORD_GLOSS = {
+  'a': 'to, at', 'abogado/a': 'lawyer', 'abro': 'I open', 'aceptan': 'they/you (formal) accept',
+  'adiós': 'goodbye', 'algo': 'something', 'alérgico/a': 'allergic', 'aprendiendo': 'learning',
+  'aprendí': 'I learned', 'aquí': 'here', 'artificial': 'artificial', 'así': 'so, like this',
+  'autobús': 'bus', 'autónomo/a': 'self-employed', 'ayuda': 'help', 'ayudarme': 'to help me',
+  'años': 'years', 'baño': 'bathroom', 'bien': 'well, fine', 'billete': 'ticket', 'blanco': 'white',
+  'bolsa': 'bag', 'buenas': 'good (fem./pl.)', 'buenos': 'good (masc./pl.)', 'buenísimo': 'really good',
+  'café': 'coffee', 'camarero/a': 'waiter, waitress', 'carne': 'meat', 'caña': 'small draft beer',
+  'cerca': 'near, close', 'cero': 'zero', 'cien': 'one hundred', 'cinco': 'five', 'cincuenta': 'fifty',
+  'claro': 'of course', 'clases': 'classes', 'compartir': 'to share', 'con': 'with',
+  'cortado': 'espresso with a splash of milk', 'cuarenta': 'forty', 'cuatro': 'four',
+  'cuenta': 'bill, check', 'cuesta': 'it costs', 'cuánto': 'how much', 'cuántos/as': 'how many',
+  'cómo': 'how', 'de': 'of, from', 'dedicas': 'you do (for work)', 'del': 'of the',
+  'delicioso': 'delicious', 'derecha': 'right (direction)', 'despacio': 'slowly', 'dice': 'is said',
+  'diez': 'ten', 'disculpe': 'excuse me, formal', 'dos': 'two', 'doy': 'I give, I teach',
+  'dublín': 'Dublin', 'día': 'day', 'días': 'days', 'dónde': 'where', 'e': 'and (before an i- sound)',
+  'efectivo': 'cash', 'el': 'the (masc.)', 'en': 'in, on', 'enfermero/a': 'nurse',
+  'entendido': 'understood', 'es': 'is', 'escribírmelo': 'to write it for me', 'español': 'Spanish',
+  'estaba': 'was', 'este': 'this', 'esto': 'this', 'estoy': 'I am', 'estudiante': 'student',
+  'está': 'is', 'favor': 'favor (as in "please")', 'gluten': 'gluten', 'gracias': 'thanks',
+  'grande': 'big, large', 'gustaría': 'would like', 'gusto': 'pleasure (as in "nice to meet you")',
+  'ha': 'has (auxiliary)', 'habla': 'speak', 'hablar': 'to speak', 'hace': 'makes; ago',
+  'hasta': 'until', 'he': 'I have (auxiliary)', 'hola': 'hello', 'hora': 'hour, time',
+  'huevo': 'egg', 'importa': 'matters', 'importaría': 'would matter (as in "would you mind")',
+  'ingeniero/a': 'engineer', 'inglés': 'English', 'inteligencia': 'intelligence', 'irlanda': 'Ireland',
+  'izquierda': 'left (direction)', 'jubilado/a': 'retired', 'kilo': 'kilo', 'la': 'the (fem.)',
+  'lactosa': 'lactose', 'las': 'the (fem. pl.)', 'le': 'to him/her/you', 'leche': 'milk',
+  'lejos': 'far', 'llego': 'I arrive', 'lleva': 'it has, it carries', 'llevar': 'to carry, to take',
+  'lo': 'it', 'luego': 'later', 'malentendido': 'misunderstanding', 'me': 'me, to me',
+  'medio': 'half', 'menú': 'menu', 'mesa': 'table', 'mirando': 'looking', 'molestias': 'trouble',
+  'momento': 'moment', 'muchas': 'many (fem.)', 'mucho': 'much, a lot', 'más': 'more',
+  'médico/a': 'doctor', 'nada': 'nothing', 'naranjas': 'oranges', 'necesito': 'I need',
+  'no': 'no, not', 'noches': 'nights', 'nos': 'us', 'nueve': 'nine', 'o': 'or', 'ocho': 'eight',
+  'once': 'eleven', 'oxidado/a': 'rusty', 'paciencia': 'patience', 'pagar': 'to pay', 'para': 'for',
+  'pasa': 'happens (as in "no worries")', 'pequeño': 'small', 'perdido/a': 'lost', 'perdona': 'sorry, informal',
+  'perdón': 'sorry, pardon', 'pescado': 'fish', 'picante': 'spicy', 'plato': 'dish, plate',
+  'poco': 'a little, a bit', 'podría': 'could', 'pone': 'puts (as in "could you get me")',
+  'por': 'for, through, by', 'profesor/a': 'teacher', 'programación': 'programming',
+  'próximo': 'next', 'puede': 'can, is able to', 'que': 'that, than', 'quiero': 'I want',
+  'quisiera': 'I would like', 'qué': 'what', 'recomienda': 'recommends', 'recto': 'straight',
+  'repetirlo': 'to repeat it', 'retomando': 'picking back up', 'sale': 'leaves, departs',
+  'se': 'himself/herself/oneself', 'sección': 'section', 'seis': 'six', 'señalarlo': 'to point at it',
+  'si': 'if', 'sido': 'been', 'siento': 'I feel, I\u2019m sorry', 'siete': 'seven',
+  'sigamos': 'let\u2019s continue', 'sin': 'without', 'solo': 'only, just', 'soy': 'I am',
+  'su': 'his, her, your (formal), their', 'sé': 'I know', 'tal': 'such (as in "how\u2019s it going")',
+  'tardes': 'afternoons, evenings', 'tarjeta': 'card', 'te': 'you, to you', 'temporada': 'season',
+  'tendría': 'would have', 'tiene': 'has', 'tienen': 'they/you (formal pl.) have',
+  'tinto': 'red (wine)', 'todavía': 'still, yet', 'todo': 'all, everything', 'tomar': 'to drink, to take',
+  'total': 'total', 'trabaja': 'works', 'trae': 'brings', 'traerme': 'to bring me',
+  'treinta': 'thirty', 'tres': 'three', 'un': 'a, an (masc.)', 'una': 'a, an (fem.)', 'uno': 'one',
+  'vale': 'okay, got it', 'vegano/a': 'vegan', 'vegetariano/a': 'vegetarian', 'veinte': 'twenty',
+  'ventana': 'window', 'vino': 'wine', 'vivo': 'I live',
+};
+
+function glossify(text) {
+  return text.split(' ').map(tok => {
+    const m = tok.match(/^([¿?¡!.,;:()…"“”]*)(.*?)([¿?¡!.,;:()…"“”]*)$/);
+    const lead = m[1], core = m[2], trail = m[3];
+    if (!core) return tok;
+    const gloss = WORD_GLOSS[core.toLowerCase()];
+    if (!gloss) return tok;
+    const safeGloss = gloss.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+    return `${lead}<span class="w" data-gloss="${safeGloss}" onclick="toggleGloss(this, event)">${core}</span>${trail}`;
+  }).join(' ');
+}
+
+function toggleGloss(el, event) {
+  if (event) event.stopPropagation();
+  const wasActive = el.classList.contains('gloss-active');
+  document.querySelectorAll('.w.gloss-active').forEach(w => w.classList.remove('gloss-active'));
+  if (!wasActive) el.classList.add('gloss-active');
+}
+
+document.addEventListener('click', () => {
+  document.querySelectorAll('.w.gloss-active').forEach(w => w.classList.remove('gloss-active'));
+});
+
 const dialogues = [
   {
     id: 'tapas',
-    title: 'En un bar de tapas',
+    title: { es: 'En un bar de tapas', en: 'At a tapas bar' },
     icon: '🍤',
     lines: [
       { s:'Camarero', es:'¡Buenas! ¿Qué os pongo?', en:'Hi! What can I get you?' },
@@ -499,7 +963,7 @@ const dialogues = [
   },
   {
     id: 'mercado',
-    title: 'En el mercado',
+    title: { es: 'En el mercado', en: 'At the market' },
     icon: '🍊',
     lines: [
       { s:'Tú', es:'Buenos días. Un kilo de naranjas, por favor.', en:'Good morning. A kilo of oranges, please.' },
@@ -514,7 +978,7 @@ const dialogues = [
   },
   {
     id: 'direcciones',
-    title: 'Pidiendo direcciones',
+    title: { es: 'Pidiendo direcciones', en: 'Asking for directions' },
     icon: '🧭',
     lines: [
       { s:'Tú', es:'Perdón, ¿cómo llego a la playa de la Malvarrosa?', en:'Excuse me, how do I get to Malvarrosa beach?' },
@@ -527,7 +991,7 @@ const dialogues = [
   },
   {
     id: 'cafe',
-    title: 'Pidiendo un café',
+    title: { es: 'Pidiendo un café', en: 'Ordering a coffee' },
     icon: '☕',
     lines: [
       { s:'Tú', es:'Buenos días, un café con leche, por favor.', en:'Good morning, a coffee with milk, please.' },
@@ -539,7 +1003,160 @@ const dialogues = [
       { s:'Camarero', es:'Son tres euros veinte.', en:'That\u2019s three twenty.' },
     ]
   },
+  {
+    id: 'especialidad',
+    title: { es: 'En una cafetería de especialidad', en: 'At a specialty coffee shop' },
+    icon: '🌱',
+    lines: [
+      { s:'Tú', es:'Buenas, ¿qué café de origen tenéis hoy?', en:'Hi, what single-origin coffee do you have today?' },
+      { s:'Barista', es:'Tenemos uno de Colombia y otro de Etiopía.', en:'We have one from Colombia and one from Ethiopia.' },
+      { s:'Tú', es:'¿Cuál recomiendas para filtro?', en:'Which do you recommend for filter/pour-over?' },
+      { s:'Barista', es:'El de Etiopía — es más floral.', en:'The Ethiopian one — it\u2019s more floral.' },
+      { s:'Tú', es:'Perfecto, uno de esos, por favor.', en:'Perfect, one of those, please.' },
+      { s:'Barista', es:'¿Para aquí?', en:'For here?' },
+      { s:'Tú', es:'Sí, y sin azúcar.', en:'Yes, and no sugar.' },
+      { s:'Barista', es:'Marchando.', en:'Coming right up.' },
+    ]
+  },
+  {
+    id: 'vegetariano',
+    title: { es: 'Vegetariano en el restaurante', en: 'Vegetarian at the restaurant' },
+    icon: '🥗',
+    lines: [
+      { s:'Tú', es:'Hola, ¿tenéis opciones vegetarianas?', en:'Hi, do you have vegetarian options?' },
+      { s:'Camarero', es:'Sí, claro. Tenemos varios platos sin carne.', en:'Yes, of course. We have several meat-free dishes.' },
+      { s:'Tú', es:'Perfecto. ¿Y algo sin lácteos también?', en:'Perfect. And something dairy-free too?' },
+      { s:'Camarero', es:'Podemos preparar la paella de verduras sin queso.', en:'We can make the vegetable paella without cheese.' },
+      { s:'Tú', es:'Suena genial. ¿Lleva frutos secos?', en:'Sounds great. Does it have nuts in it?' },
+      { s:'Camarero', es:'No, no lleva frutos secos.', en:'No, it doesn\u2019t have nuts.' },
+      { s:'Tú', es:'Entonces esa, por favor.', en:'Then that one, please.' },
+      { s:'Camarero', es:'Muy buena elección.', en:'Very good choice.' },
+    ]
+  },
+  {
+    id: 'conociendo',
+    title: { es: 'Conociendo a alguien', en: 'Getting to know someone' },
+    icon: '👋',
+    lines: [
+      { s:'Local', es:'¡Hola! ¿Eres de por aquí?', en:'Hi! Are you from around here?' },
+      { s:'Tú', es:'No, estoy de vacaciones. Soy de Dublín.', en:'No, I\u2019m on vacation. I\u2019m from Dublin.' },
+      { s:'Local', es:'¡Qué bien! ¿Cuánto tiempo llevas aquí?', en:'Nice! How long have you been here?' },
+      { s:'Tú', es:'Una semana. Me encanta esta ciudad.', en:'A week. I love this city.' },
+      { s:'Local', es:'¿Qué te gusta hacer en tu tiempo libre?', en:'What do you like to do in your free time?' },
+      { s:'Tú', es:'Me gusta el café de especialidad y el jazz. ¿Y a ti?', en:'I like specialty coffee and jazz. And you?' },
+      { s:'Local', es:'A mí me encanta hacer senderismo los fines de semana.', en:'I love hiking on weekends.' },
+      { s:'Tú', es:'¡Qué bien! A mí también me gustaría probarlo por aquí.', en:'That\u2019s great! I\u2019d like to try that around here too.' },
+    ]
+  },
+  {
+    id: 'recomendaciones',
+    title: { es: 'Pidiendo recomendaciones', en: 'Asking for recommendations' },
+    icon: '🎷',
+    lines: [
+      { s:'Tú', es:'¿Puedes recomendarme un parque bonito para pasear?', en:'Can you recommend a nice park to walk in?' },
+      { s:'Local', es:'Sí, el Jardín del Turia es precioso, y es gratis.', en:'Yes, the Turia Garden is beautiful, and it\u2019s free.' },
+      { s:'Tú', es:'¿Y alguna ruta de senderismo cerca de la ciudad?', en:'And a hiking route near the city?' },
+      { s:'Local', es:'El Parque Natural de la Albufera es una pasada.', en:'Albufera Natural Park is amazing.' },
+      { s:'Tú', es:'¿Conoces alguna cafetería de especialidad por aquí?', en:'Do you know a specialty coffee shop around here?' },
+      { s:'Local', es:'Sí, hay una muy buena cerca del Mercado Central.', en:'Yes, there\u2019s a really good one near the Central Market.' },
+      { s:'Tú', es:'Última pregunta — ¿algún sitio con jazz o salsa en directo?', en:'Last question — any place with live jazz or salsa?' },
+      { s:'Local', es:'Los jueves hay jazz en un bar del Carmen, y salsa los sábados en el centro.', en:'On Thursdays there\u2019s jazz at a bar in Carmen, and salsa on Saturdays downtown.' },
+      { s:'Tú', es:'Muchísimas gracias, me has ayudado un montón.', en:'Thank you so much, you\u2019ve helped a lot.' },
+    ]
+  },
 ];
+
+/* ===================== UI STRINGS (i18n) ===================== */
+
+const STR = {
+  tagline:            { es: 'Español para el día a día — restaurantes, mercado y la calle', en: 'Everyday Spanish — restaurants, markets, and the street' },
+  voiceToggle:        { es: '🔊 Voz', en: '🔊 Voice' },
+  speedLabel:          { es: 'Velocidad', en: 'Speed' },
+  tabFrases:          { es: 'Frases', en: 'Phrases' },
+  tabDialogos:        { es: 'Diálogos', en: 'Dialogues' },
+  tabPronunciacion:   { es: 'Sonidos', en: 'Sounds' },
+  tabGramatica:       { es: 'Gramática', en: 'Grammar' },
+
+  sonVocales:         { es: '🔤 Vocales', en: '🔤 Vowels' },
+  sonConsonantes:     { es: '👄 Consonantes clave', en: '👄 Key consonants' },
+  sonAcentuacion:     { es: '🎯 Acentuación', en: '🎯 Stress & accent marks' },
+  sonPares:           { es: '👂 Pares mínimos', en: '👂 Minimal pairs' },
+
+  gramPronombres:     { es: '🧍 Pronombres personales', en: '🧍 Personal pronouns' },
+  gramSustantivos:    { es: '🏷️ Sustantivos, género y artículos', en: '🏷️ Nouns, gender & articles' },
+  gramAdjetivos:      { es: '🎨 Adjetivos', en: '🎨 Adjectives' },
+  gramPosesivos:      { es: '🔑 Posesivos', en: '🔑 Possessives' },
+  gramSerEstar:       { es: '⚖️ Ser vs. Estar', en: '⚖️ To Be: Ser vs. Estar' },
+  gramVerbosReg:      { es: '🔧 Verbos regulares en presente', en: '🔧 Regular verbs, present tense' },
+  gramTenerQuererPoder: { es: '⚡ Tener, querer, poder', en: '⚡ Key irregulars: tener, querer, poder' },
+  gramPreguntas:      { es: '❓ Preguntas', en: '❓ Questions' },
+  gramNegacion:       { es: '🚫 Negación', en: '🚫 Negation' },
+  gramCondicional:    { es: '🙏 El condicional, para pedir con cortesía', en: '🙏 The conditional, for polite requests' },
+  tipPronunciation:   { es: '<strong>Cómo suena el español de España:</strong> la "c" (ante e/i) y la "z" suenan como la "th" inglesa de <em>think</em> — <em>gracias</em> ≈ "GRA-thyas". La "j" y la "g" suaves son un sonido gutural, como aclarar la garganta. La "ll" suena como "y". Toca 🔊 para oírlo de verdad.',
+                        en: '<strong>How Spanish sounds in Spain:</strong> "c" (before e/i) and "z" sound like the English "th" in <em>think</em> — <em>gracias</em> ≈ "GRA-thyas". A soft "j" or "g" is a throaty sound, like clearing your throat. "ll" sounds like "y". Tap 🔊 to hear it for real.' },
+  searchPlaceholder:  { es: 'Buscar una frase… (p. ej. \u2018cuenta\u2019)', en: 'Search for a phrase… (e.g. \u2018bill\u2019)' },
+  noResults:          { es: 'Sin resultados. Prueba otra palabra.', en: 'No results. Try another word.' },
+  dialogueTip:        { es: 'Toca <strong>▶ Reproducir</strong> para escuchar el diálogo entero, línea por línea, o toca el altavoz de una sola frase.', en: 'Tap <strong>▶ Play</strong> to hear the whole dialogue, line by line, or tap the speaker icon for a single line.' },
+  play:               { es: '▶ Reproducir', en: '▶ Play' },
+  footer:             { es: 'Funciona sin conexión una vez cargada. La calidad de la voz depende de las voces en español instaladas en tu teléfono.', en: 'Works offline once loaded. Voice quality depends on the Spanish voices installed on your phone.' },
+  voiceConnectDesc:   { es: 'Conecta una clave gratuita de <a href="https://elevenlabs.io" target="_blank" rel="noopener">elevenlabs.io</a> para una voz española mucho más natural. Sin clave, se usa la voz del teléfono.',
+                        en: 'Connect a free key from <a href="https://elevenlabs.io" target="_blank" rel="noopener">elevenlabs.io</a> for a much more natural Spanish voice. Without a key, your phone\u2019s voice is used.' },
+  voiceKeyPlaceholder:{ es: 'Clave de API de ElevenLabs', en: 'ElevenLabs API key' },
+  voiceConnect:       { es: 'Conectar', en: 'Connect' },
+  voiceConnecting:    { es: 'Conectando…', en: 'Connecting…' },
+  voiceConnectFail:   { es: 'No se pudo conectar. Revisa la clave.', en: 'Couldn\u2019t connect. Check the key.' },
+  voiceLoadingVoices: { es: 'Cargando voces…', en: 'Loading voices…' },
+  voiceLoadFail:      { es: 'No se pudo cargar la lista de voces (revisa la conexión). La clave guardada sigue activa para reproducir audio.', en: 'Couldn\u2019t load the voice list (check your connection). The saved key is still active for playback.' },
+  voiceConnectedDesc: { es: 'Conectado a ElevenLabs. Elige una voz y pruébala — no todas suenan igual de españolas.', en: 'Connected to ElevenLabs. Pick a voice and try it — they don\u2019t all sound equally Spanish.' },
+  voiceTry:           { es: '▶ Probar', en: '▶ Try it' },
+  voiceForget:        { es: 'Olvidar clave', en: 'Forget key' },
+};
+
+const speakerLabels = {
+  es: { 'Tú': 'Tú', 'Camarero': 'Camarero', 'Vendedor': 'Vendedor', 'Local': 'Local', 'Barista': 'Barista' },
+  en: { 'Tú': 'You', 'Camarero': 'Waiter', 'Vendedor': 'Vendor', 'Local': 'Local', 'Barista': 'Barista' },
+};
+
+let currentLang = 'es';
+function loadLangSetting() {
+  try { currentLang = localStorage.getItem('cuaderno_lang') || 'es'; } catch (e) { /* ignore */ }
+}
+
+let speechRate = 0.9;
+function loadRateSetting() {
+  try {
+    const saved = parseFloat(localStorage.getItem('cuaderno_rate'));
+    if (!isNaN(saved)) speechRate = saved;
+  } catch (e) { /* ignore */ }
+}
+
+function onSpeedChange(val) {
+  speechRate = parseFloat(val);
+  document.getElementById('speed-value').textContent = Math.round(speechRate * 100) + '%';
+  try { localStorage.setItem('cuaderno_rate', speechRate); } catch (e) { /* ignore */ }
+}
+
+/* ===================== THEME ===================== */
+
+function loadThemeSetting() {
+  let saved = null;
+  try { saved = localStorage.getItem('cuaderno_theme'); } catch (e) { /* ignore */ }
+  const isDark = saved ? saved === 'dark' : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  setTheme(isDark, false);
+}
+
+function setTheme(isDark, persist) {
+  document.documentElement.classList.toggle('dark', isDark);
+  const btn = document.getElementById('theme-toggle');
+  if (btn) btn.textContent = isDark ? '☀️' : '🌙';
+  if (persist) {
+    try { localStorage.setItem('cuaderno_theme', isDark ? 'dark' : 'light'); } catch (e) { /* ignore */ }
+  }
+}
+
+function toggleTheme() {
+  setTheme(!document.documentElement.classList.contains('dark'), true);
+}
 
 /* ===================== ON-DEVICE VOICE (fallback) ===================== */
 
@@ -562,7 +1179,7 @@ function speakOnDevice(text, cleanup) {
   window.speechSynthesis.cancel();
   const utter = new SpeechSynthesisUtterance(text);
   utter.lang = 'es-ES';
-  utter.rate = 0.92;
+  utter.rate = speechRate;
   const v = pickVoice();
   if (v) utter.voice = v;
   utter.onend = cleanup;
@@ -663,6 +1280,10 @@ async function speak(text, btnEl, onDone) {
       }
       const url = URL.createObjectURL(blob);
       const audio = new Audio(url);
+      audio.playbackRate = speechRate;
+      audio.preservesPitch = true;
+      audio.mozPreservesPitch = true;
+      audio.webkitPreservesPitch = true;
       audio.onended = () => { URL.revokeObjectURL(url); cleanup(); };
       audio.onerror = () => { URL.revokeObjectURL(url); speakOnDevice(text, cleanup); };
       await audio.play();
@@ -686,33 +1307,33 @@ function renderVoicePanel() {
   const el = document.getElementById('voice-panel-inner');
   if (!elKey) {
     el.innerHTML = `
-      <p class="voice-desc">Conecta una clave gratuita de <a href="https://elevenlabs.io" target="_blank" rel="noopener">elevenlabs.io</a> para una voz española mucho más natural. Sin clave, se usa la voz del teléfono.</p>
+      <p class="voice-desc">${STR.voiceConnectDesc[currentLang]}</p>
       <div class="voice-row">
-        <input type="password" id="voice-key-input" placeholder="Clave de API de ElevenLabs" autocomplete="off">
-        <button class="voice-btn" onclick="connectEl()">Conectar</button>
+        <input type="password" id="voice-key-input" placeholder="${STR.voiceKeyPlaceholder[currentLang]}" autocomplete="off">
+        <button class="voice-btn" onclick="connectEl()">${STR.voiceConnect[currentLang]}</button>
       </div>
       <div class="voice-status" id="voice-status"></div>
     `;
   } else if (!elVoices.length) {
-    el.innerHTML = `<div class="voice-status">Cargando voces…</div>`;
+    el.innerHTML = `<div class="voice-status">${STR.voiceLoadingVoices[currentLang]}</div>`;
     fetchElVoices(elKey).then(list => {
       elVoices = list;
       if (!elVoiceId && list.length) { elVoiceId = list[0].voice_id; persistElSettings(); }
       renderVoicePanel();
     }).catch(() => {
-      el.innerHTML = `<p class="voice-desc">No se pudo cargar la lista de voces (revisa la conexión). La clave guardada sigue activa para reproducir audio.</p><button class="voice-forget" onclick="forgetEl()">Olvidar clave</button>`;
+      el.innerHTML = `<p class="voice-desc">${STR.voiceLoadFail[currentLang]}</p><button class="voice-forget" onclick="forgetEl()">${STR.voiceForget[currentLang]}</button>`;
     });
   } else {
     const options = elVoices.map(v =>
       `<option value="${v.voice_id}"${v.voice_id === elVoiceId ? ' selected' : ''}>${v.name}</option>`
     ).join('');
     el.innerHTML = `
-      <p class="voice-desc">Conectado a ElevenLabs. Elige una voz y pruébala — no todas suenan igual de españolas.</p>
+      <p class="voice-desc">${STR.voiceConnectedDesc[currentLang]}</p>
       <div class="voice-row">
         <select id="voice-select" onchange="onVoiceSelect(this.value)">${options}</select>
-        <button class="voice-btn" onclick="previewVoice()">▶ Probar</button>
+        <button class="voice-btn" onclick="previewVoice()">${STR.voiceTry[currentLang]}</button>
       </div>
-      <button class="voice-forget" onclick="forgetEl()">Olvidar clave</button>
+      <button class="voice-forget" onclick="forgetEl()">${STR.voiceForget[currentLang]}</button>
     `;
   }
 }
@@ -729,7 +1350,7 @@ async function connectEl() {
   const status = document.getElementById('voice-status');
   const key = input.value.trim();
   if (!key) return;
-  status.textContent = 'Conectando…';
+  status.textContent = STR.voiceConnecting[currentLang];
   try {
     const list = await fetchElVoices(key);
     if (!list.length) throw new Error('sin voces');
@@ -739,7 +1360,7 @@ async function connectEl() {
     persistElSettings();
     renderVoicePanel();
   } catch (e) {
-    status.textContent = 'No se pudo conectar. Revisa la clave.';
+    status.textContent = STR.voiceConnectFail[currentLang];
   }
 }
 
@@ -772,7 +1393,7 @@ let searchQuery = '';
 function renderCats() {
   const row = document.getElementById('cats-row');
   row.innerHTML = categories.map(c =>
-    `<button class="pill${c.id === activeCat ? ' active' : ''}" onclick="selectCat('${c.id}')">${c.icon} ${c.label}</button>`
+    `<button class="pill${c.id === activeCat ? ' active' : ''}" onclick="selectCat('${c.id}')">${c.icon} ${c.label[currentLang]}</button>`
   ).join('');
 }
 
@@ -803,7 +1424,7 @@ function renderPhrases() {
   }
 
   if (!items.length) {
-    list.innerHTML = '<div class="no-results">Sin resultados. Prueba otra palabra.</div>';
+    list.innerHTML = `<div class="no-results">${STR.noResults[currentLang]}</div>`;
     return;
   }
 
@@ -813,8 +1434,8 @@ function renderPhrases() {
     return `
       <div class="phrase-card fade-in">
         <div class="phrase-text">
-          ${showCatLabel ? `<div class="cat-label">${catInfo ? catInfo.icon + ' ' + catInfo.label : ''}</div>` : ''}
-          <div class="phrase-es">${p.es}</div>
+          ${showCatLabel ? `<div class="cat-label">${catInfo ? catInfo.icon + ' ' + catInfo.label[currentLang] : ''}</div>` : ''}
+          <div class="phrase-es">${glossify(p.es)}</div>
           <div class="phrase-en">${p.en}</div>
           ${p.note ? `<div class="phrase-note">${p.note}</div>` : ''}
         </div>
@@ -829,22 +1450,20 @@ function renderDialogues() {
   const wrap = document.getElementById('dialogue-list');
   wrap.innerHTML = dialogues.map(d => `
     <div class="dialogue">
-      <div class="dialogue-card">
-        <div class="dialogue-head">
-          <div class="dialogue-title">${d.icon} ${d.title}</div>
-          <button class="play-all" onclick="playDialogue('${d.id}')">▶ Reproducir</button>
-        </div>
-        ${d.lines.map((line, i) => `
-          <div class="line" data-line="${d.id}-${i}">
-            <div class="line-speaker">${line.s}</div>
-            <div class="line-body">
-              <div class="line-es">${line.es}</div>
-              <div class="line-en">${line.en}</div>
-            </div>
-            <button class="line-speak" aria-label="Escuchar" onclick="speak('${line.es.replace(/'/g, "\\'")}', this)">🔊</button>
-          </div>
-        `).join('')}
+      <div class="dialogue-head">
+        <div class="dialogue-title">${d.icon} ${d.title[currentLang]}</div>
+        <button class="play-all" onclick="playDialogue('${d.id}')">${STR.play[currentLang]}</button>
       </div>
+      ${d.lines.map((line, i) => `
+        <div class="line" data-line="${d.id}-${i}">
+          <div class="line-speaker">${(speakerLabels[currentLang] && speakerLabels[currentLang][line.s]) || line.s}</div>
+          <div class="line-body">
+            <div class="line-es">${line.es}</div>
+            <div class="line-en">${line.en}</div>
+          </div>
+          <button class="line-speak" aria-label="Escuchar" onclick="speak('${line.es.replace(/'/g, "\\'")}', this)">🔊</button>
+        </div>
+      `).join('')}
     </div>
   `).join('');
 }
@@ -862,7 +1481,7 @@ function playDialogue(id) {
     speak(line.es, null, () => {
       if (el) el.classList.remove('line-active');
       i++;
-      setTimeout(next, 300);
+      next();
     });
   }
   next();
@@ -871,20 +1490,55 @@ function playDialogue(id) {
 /* ===================== TABS ===================== */
 
 function showTab(name) {
-  const isFrases = name === 'frases';
-  document.getElementById('tab-frases').classList.toggle('active', isFrases);
-  document.getElementById('tab-dialogos').classList.toggle('active', !isFrases);
-  document.getElementById('panel-frases').hidden = !isFrases;
-  document.getElementById('panel-dialogos').hidden = isFrases;
-  if (!isFrases) window.speechSynthesis && window.speechSynthesis.cancel();
+  const tabs = { frases: 'tab-frases', dialogos: 'tab-dialogos', pronunciacion: 'tab-pronunciacion', gramatica: 'tab-gramatica' };
+  const panels = { frases: 'panel-frases', dialogos: 'panel-dialogos', pronunciacion: 'panel-pronunciacion', gramatica: 'panel-gramatica' };
+  Object.keys(tabs).forEach(key => {
+    document.getElementById(tabs[key]).classList.toggle('active', key === name);
+    document.getElementById(panels[key]).hidden = key !== name;
+  });
+  if (name !== 'dialogos') window.speechSynthesis && window.speechSynthesis.cancel();
+}
+
+/* ===================== LANGUAGE ===================== */
+
+function applyLang() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (STR[key]) el.textContent = STR[key][currentLang];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    if (STR[key]) el.innerHTML = STR[key][currentLang];
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (STR[key]) el.placeholder = STR[key][currentLang];
+  });
+  document.getElementById('lang-es').classList.toggle('active', currentLang === 'es');
+  document.getElementById('lang-en').classList.toggle('active', currentLang === 'en');
+  document.documentElement.lang = currentLang;
+  renderCats();
+  renderPhrases();
+  renderDialogues();
+  if (!document.getElementById('voice-panel').hidden) renderVoicePanel();
+}
+
+function setLang(lang) {
+  if (lang === currentLang) return;
+  currentLang = lang;
+  try { localStorage.setItem('cuaderno_lang', lang); } catch (e) { /* ignore */ }
+  applyLang();
 }
 
 /* ===================== INIT ===================== */
 
 loadElSettings();
-renderCats();
-renderPhrases();
-renderDialogues();
+loadLangSetting();
+loadRateSetting();
+loadThemeSetting();
+document.getElementById('speed-slider').value = speechRate;
+document.getElementById('speed-value').textContent = Math.round(speechRate * 100) + '%';
+applyLang();
 </script>
 
 </body>
