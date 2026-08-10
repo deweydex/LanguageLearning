@@ -762,8 +762,11 @@ const categories = [
   { id: 'cafe',          label: { es: 'Café y bares',  en: 'Coffee & bars' } },
   { id: 'restaurantes',  label: { es: 'Restaurantes',  en: 'Restaurants' } },
   { id: 'mercado',       label: { es: 'Mercado',       en: 'Market' } },
+  { id: 'supermercado',  label: { es: 'Supermercado',  en: 'Grocery store' } },
   { id: 'direcciones',   label: { es: 'Moverse',       en: 'Getting around' } },
   { id: 'numeros',       label: { es: 'Números',       en: 'Numbers' } },
+  { id: 'tiempo',        label: { es: 'Hora y tiempo', en: 'Time & weather' } },
+  { id: 'emergencias',   label: { es: 'Emergencias',   en: 'Emergencies' } },
   { id: 'utiles',        label: { es: 'Frases útiles', en: 'Useful phrases' } },
 ];
 
@@ -794,6 +797,8 @@ const phrases = [
   { cat:'sobremi', es:'médico/a, enfermero/a, ingeniero/a', en:'doctor, nurse, engineer' },
   { cat:'sobremi', es:'estudiante, camarero/a, abogado/a', en:'student, waiter, lawyer' },
   { cat:'sobremi', es:'jubilado/a, autónomo/a', en:'retired, self-employed / freelance' },
+  { cat:'sobremi', es:'No como carne desde hace unos años', en:'I haven’t eaten meat in a few years', note:'A natural, casual way to bring it up socially — not just at a restaurant' },
+  { cat:'sobremi', es:'Soy un/a gran amante del café', en:'I’m a big coffee lover' },
 
   // Disculpas y malentendidos
   { cat:'malentendidos', es:'Perdona, no te he entendido', en:'Sorry, I didn\u2019t understand you', note:'Informal — tú' },
@@ -809,19 +814,19 @@ const phrases = [
   { cat:'malentendidos', es:'Ha sido un malentendido, lo siento', en:'It was a misunderstanding, I\u2019m sorry' },
   { cat:'malentendidos', es:'No pasa nada, sigamos', en:'No worries, let\u2019s carry on' },
   { cat:'malentendidos', es:'Gracias por su paciencia', en:'Thank you for your patience' },
-  { cat:'malentendidos', es:'Espera, deja que lo repita para asegurarme', en:'Wait, let me repeat it back to make sure', note:'Great for confirming an order before it’s sent to the kitchen' },
+  { cat:'malentendidos', es:'Espera, deja que lo repita para asegurarme', en:'Wait, let me repeat it back to make sure', note:'Informal — tú. Great for confirming an order before it’s sent to the kitchen' },
   { cat:'malentendidos', es:'Entonces, si no me equivoco…', en:'So, if I’m not mistaken…', note:'Useful for checking your own understanding out loud' },
 
   // Cortesía
-  { cat:'cortesia', es:'Quiero un café', en:'I want a coffee', note:'Directo — bien entre amigos, un poco brusco con desconocidos' },
-  { cat:'cortesia', es:'Quisiera un café', en:'I would like a coffee', note:'La forma clásica y más suave de pedir' },
-  { cat:'cortesia', es:'Me gustaría un café', en:'I would like a coffee', note:'Igual de natural que \u201cquisiera\u201d' },
-  { cat:'cortesia', es:'¿Puede traerme la cuenta?', en:'Can you bring me the bill?', note:'Ya es cortés' },
-  { cat:'cortesia', es:'¿Podría traerme la cuenta?', en:'Could you bring me the bill?', note:'Aún más suave — como el \u201ccould\u201d inglés o el Konjunktiv alemán' },
+  { cat:'cortesia', es:'Quiero un café', en:'I want a coffee', note:'Direct — fine among friends, a bit blunt with strangers' },
+  { cat:'cortesia', es:'Quisiera un café', en:'I would like a coffee', note:'The classic, softer way to ask' },
+  { cat:'cortesia', es:'Me gustaría un café', en:'I would like a coffee', note:'Just as natural as \u201cquisiera\u201d' },
+  { cat:'cortesia', es:'¿Puede traerme la cuenta?', en:'Can you bring me the bill?', note:'Already polite as-is' },
+  { cat:'cortesia', es:'¿Podría traerme la cuenta?', en:'Could you bring me the bill?', note:'Even softer — like English \u201ccould\u201d or the German Konjunktiv' },
   { cat:'cortesia', es:'¿Tiene mesa para dos?', en:'Do you have a table for two?' },
-  { cat:'cortesia', es:'¿Tendría mesa para dos?', en:'Would you have a table for two?', note:'Condicional — muy cortés para reservar' },
+  { cat:'cortesia', es:'¿Tendría mesa para dos?', en:'Would you have a table for two?', note:'Conditional — very polite for making a reservation' },
   { cat:'cortesia', es:'¿Le importa si abro la ventana?', en:'Do you mind if I open the window?' },
-  { cat:'cortesia', es:'¿Le importaría ayudarme un momento?', en:'Would you mind helping me for a moment?', note:'Para peticiones más grandes' },
+  { cat:'cortesia', es:'¿Le importaría ayudarme un momento?', en:'Would you mind helping me for a moment?', note:'For bigger requests' },
 
   // Café y bares
   { cat:'cafe', es:'¿Me pone un café con leche?', en:'Could you get me a coffee with milk?', note:'Common way to order' },
@@ -834,8 +839,8 @@ const phrases = [
   { cat:'cafe', es:'¿Se puede pagar con tarjeta?', en:'Can I pay by card?' },
   { cat:'cafe', es:'La cuenta, por favor', en:'The bill, please' },
   { cat:'cafe', es:'Está buenísimo', en:'It\u2019s really good' },
-  { cat:'cafe', es:'Un café grande', en:'A large coffee', note:'Adjetivo después del sustantivo — ver Gramática' },
-  { cat:'cafe', es:'Un café pequeño', en:'A small coffee', note:'Igual que arriba: sustantivo + adjetivo' },
+  { cat:'cafe', es:'Un café grande', en:'A large coffee', note:'Adjective after the noun — see Grammar' },
+  { cat:'cafe', es:'Un café pequeño', en:'A small coffee', note:'Same pattern as above: noun + adjective' },
   { cat:'cafe', es:'¿Tiene café en grano?', en:'Do you have whole bean coffee?' },
   { cat:'cafe', es:'¿Me lo muele para cafetera italiana, por favor?', en:'Could you grind it for a moka pot, please?', note:'"Cafetera italiana" is what a moka pot is called in Spain' },
   { cat:'cafe', es:'¿Es un tueste claro u oscuro?', en:'Is it a light or dark roast?' },
@@ -847,6 +852,12 @@ const phrases = [
   { cat:'cafe', es:'Un cuarto de kilo, por favor', en:'A quarter kilo, please' },
   { cat:'cafe', es:'Con leche de avena, si tiene', en:'With oat milk, if you have it' },
   { cat:'cafe', es:'Sin azúcar, gracias', en:'No sugar, thanks' },
+  { cat:'cafe', es:'¿Tiene leche de soja?', en:'Do you have soy milk?' },
+  { cat:'cafe', es:'¿Tiene alguna leche vegetal?', en:'Do you have any plant milk?', note:'Handy if you don’t mind which kind' },
+  { cat:'cafe', es:'Descafeinado, por favor', en:'Decaf, please' },
+  { cat:'cafe', es:'Con un shot extra, por favor', en:'With an extra shot, please' },
+  { cat:'cafe', es:'Bien caliente, por favor', en:'Very hot, please' },
+  { cat:'cafe', es:'Templado, por favor', en:'Lukewarm, please' },
 
   // Restaurantes
   { cat:'restaurantes', es:'Una mesa para dos, por favor', en:'A table for two, please' },
@@ -854,7 +865,7 @@ const phrases = [
   { cat:'restaurantes', es:'¿Qué lleva este plato?', en:'What\u2019s in this dish?' },
   { cat:'restaurantes', es:'Soy alérgico/a a…', en:'I\u2019m allergic to…' },
   { cat:'restaurantes', es:'Sin gluten / Sin lactosa', en:'Gluten-free / Dairy-free' },
-  { cat:'restaurantes', es:'Soy vegetariano/a', en:'I\u2019m vegetarian', note:'El adjetivo concuerda con tu género — ver Gramática' },
+  { cat:'restaurantes', es:'Soy vegetariano/a', en:'I\u2019m vegetarian', note:'The adjective agrees with your own gender — see Grammar' },
   { cat:'restaurantes', es:'Soy vegano/a', en:'I\u2019m vegan' },
   { cat:'restaurantes', es:'¿Lleva carne o pescado?', en:'Does it have meat or fish in it?' },
   { cat:'restaurantes', es:'¿Lleva huevo?', en:'Does it have egg in it?' },
@@ -871,9 +882,16 @@ const phrases = [
   { cat:'restaurantes', es:'¿Tiene alguna alternativa vegetariana?', en:'Do you have a vegetarian alternative?' },
   { cat:'restaurantes', es:'¿Lleva caldo de carne?', en:'Is it made with meat broth?', note:'Worth asking — plenty of “vegetarian” dishes are cooked in meat stock' },
   { cat:'restaurantes', es:'Sin jamón, por favor', en:'Without ham, please', note:'Jamón turns up in a lot of tapas that otherwise look vegetarian' },
+  { cat:'restaurantes', es:'¿Lleva garbanzos o lentejas?', en:'Does it have chickpeas or lentils?' },
+  { cat:'restaurantes', es:'¿El seitán es picante?', en:'Is the seitan spicy?' },
+  { cat:'restaurantes', es:'Me encanta el tofu y el tempeh', en:'I love tofu and tempeh' },
+  { cat:'restaurantes', es:'¿Qué proteína lleva este plato?', en:'What protein is in this dish?', note:'A quick way to check without listing every option' },
   { cat:'restaurantes', es:'¿Eso es todo? / ¿Algo más?', en:'Is that everything? / Anything else?', note:'What the waiter asks once you seem done ordering' },
   { cat:'restaurantes', es:'Sí, eso es todo, gracias', en:'Yes, that’s everything, thanks', note:'Your answer if you’re done' },
   { cat:'restaurantes', es:'No, también quisiera…', en:'No, I’d also like…', note:'Your answer if you want to add something' },
+  { cat:'restaurantes', es:'¿Pagamos juntos o por separado?', en:'Are we paying together or separately?' },
+  { cat:'restaurantes', es:'¿Tiene cambio de veinte?', en:'Do you have change for twenty?' },
+  { cat:'restaurantes', es:'Quédese con el cambio', en:'Keep the change', note:'Tipping is much lighter in Spain than in the US — rounding up or leaving small change is plenty' },
 
   // Mercado
   { cat:'mercado', es:'¿Cuánto cuesta esto?', en:'How much does this cost?' },
@@ -887,6 +905,24 @@ const phrases = [
   { cat:'mercado', es:'¿Aceptan efectivo?', en:'Do you take cash?' },
   { cat:'mercado', es:'Nada más, gracias', en:'Nothing else, thanks' },
 
+  // Supermercado — a chain grocery store plays differently from a market stall:
+  // self-service, fixed prices, weigh-your-own produce, cashier belt
+  { cat:'supermercado', es:'¿En qué pasillo está…?', en:'What aisle is … in?' },
+  { cat:'supermercado', es:'¿Dónde está la sección de lácteos?', en:'Where’s the dairy aisle?' },
+  { cat:'supermercado', es:'Perdone, ¿me puede ayudar a encontrar algo?', en:'Excuse me, can you help me find something?' },
+  { cat:'supermercado', es:'¿Es apto para veganos?', en:'Is this vegan-friendly?', note:'Common label wording — look for “apto para veganos” on packaging' },
+  { cat:'supermercado', es:'¿Puede contener trazas de frutos secos?', en:'May contain traces of nuts?', note:'Standard allergen-label phrasing' },
+  { cat:'supermercado', es:'¿Cuál es la fecha de caducidad?', en:'What’s the expiration date?' },
+  { cat:'supermercado', es:'Está de oferta', en:'It’s on sale' },
+  { cat:'supermercado', es:'Voy a pesarlo aquí', en:'I’m going to weigh this here', note:'Produce sections usually have a self-service scale that prints a price sticker' },
+  { cat:'supermercado', es:'¿Cómo funciona la báscula?', en:'How does the scale work?' },
+  { cat:'supermercado', es:'¿Tiene tarjeta de fidelización?', en:'Do you have a loyalty card?', note:'What the cashier asks — “No, gracias” is a perfectly fine answer' },
+  { cat:'supermercado', es:'¿Necesita bolsa?', en:'Do you need a bag?', note:'Bags usually cost extra — bring your own if you can' },
+  { cat:'supermercado', es:'Sí, una bolsa, por favor / No, ya tengo', en:'Yes, one bag, please / No, I already have one' },
+  { cat:'supermercado', es:'¿Contactless o con pin?', en:'Contactless or with pin?', note:'What the cashier asks about card payment' },
+  { cat:'supermercado', es:'¿Quiere el tique?', en:'Would you like the receipt?' },
+  { cat:'supermercado', es:'Sí, por favor / No, gracias', en:'Yes, please / No, thanks' },
+
   // Direcciones
   { cat:'direcciones', es:'¿Dónde está…?', en:'Where is…?' },
   { cat:'direcciones', es:'¿Cómo llego a…?', en:'How do I get to…?' },
@@ -896,6 +932,18 @@ const phrases = [
   { cat:'direcciones', es:'¿A qué hora sale el próximo autobús?', en:'What time does the next bus leave?' },
   { cat:'direcciones', es:'Un billete para…, por favor', en:'A ticket to…, please' },
   { cat:'direcciones', es:'Estoy perdido/a', en:'I\u2019m lost' },
+  { cat:'direcciones', es:'Un bono de diez viajes, por favor', en:'A ten-trip pass, please', note:'Common way to buy metro/bus tickets in bulk in Spain' },
+  { cat:'direcciones', es:'\u00bfEs este el and\u00e9n para\u2026?', en:'Is this the platform for\u2026?' },
+  { cat:'direcciones', es:'\u00bfPara qu\u00e9 parada tengo que bajar?', en:'Which stop do I need to get off at?' },
+
+  // Emergencias — worth knowing before you need them
+  { cat:'emergencias', es:'¿Dónde está la farmacia más cercana?', en:'Where’s the nearest pharmacy?' },
+  { cat:'emergencias', es:'Necesito un médico', en:'I need a doctor' },
+  { cat:'emergencias', es:'No me encuentro bien', en:'I don’t feel well' },
+  { cat:'emergencias', es:'He perdido mi…', en:'I’ve lost my…' },
+  { cat:'emergencias', es:'¿Puede ayudarme, por favor?', en:'Can you help me, please?' },
+  { cat:'emergencias', es:'Llame a una ambulancia, por favor', en:'Call an ambulance, please' },
+  { cat:'emergencias', es:'Es urgente', en:'It’s urgent' },
 
   // Números
   { cat:'numeros', es:'cero, uno, dos', en:'zero, one, two' },
@@ -906,6 +954,25 @@ const phrases = [
   { cat:'numeros', es:'cuarenta, cincuenta', en:'forty, fifty' },
   { cat:'numeros', es:'cien', en:'one hundred' },
   { cat:'numeros', es:'¿Cuántos/as…?', en:'How many…?' },
+
+  // Hora y tiempo — telling time, days, months, and weather small talk
+  { cat:'tiempo', es:'¿Qué hora es?', en:'What time is it?' },
+  { cat:'tiempo', es:'Es la una', en:'It’s one o’clock', note:'“Una” is the only hour that takes the singular “es la”' },
+  { cat:'tiempo', es:'Son las tres', en:'It’s three o’clock' },
+  { cat:'tiempo', es:'Son las tres y media', en:'It’s half past three' },
+  { cat:'tiempo', es:'A las siete', en:'At seven o’clock' },
+  { cat:'tiempo', es:'lunes, martes, miércoles', en:'Monday, Tuesday, Wednesday' },
+  { cat:'tiempo', es:'jueves, viernes', en:'Thursday, Friday' },
+  { cat:'tiempo', es:'sábado, domingo', en:'Saturday, Sunday' },
+  { cat:'tiempo', es:'enero, febrero, marzo', en:'January, February, March' },
+  { cat:'tiempo', es:'abril, mayo, junio', en:'April, May, June' },
+  { cat:'tiempo', es:'julio, agosto, septiembre', en:'July, August, September' },
+  { cat:'tiempo', es:'octubre, noviembre, diciembre', en:'October, November, December' },
+  { cat:'tiempo', es:'¿Qué tiempo hace hoy?', en:'What’s the weather like today?' },
+  { cat:'tiempo', es:'Hace calor / Hace frío', en:'It’s hot / It’s cold' },
+  { cat:'tiempo', es:'Hace sol', en:'It’s sunny' },
+  { cat:'tiempo', es:'Está lloviendo', en:'It’s raining' },
+  { cat:'tiempo', es:'Hace buen tiempo / mal tiempo', en:'The weather’s nice / bad' },
 
   // Frases útiles
   { cat:'utiles', es:'¿Habla inglés?', en:'Do you speak English?' },
@@ -971,7 +1038,7 @@ const WORD_GLOSS = {
   'estaba': 'was', 'este': 'this', 'esto': 'this', 'estoy': 'I am', 'estudiante': 'student',
   'está': 'is', 'favor': 'favor (as in "please")', 'gluten': 'gluten', 'gracias': 'thanks',
   'grande': 'big, large', 'gustaría': 'would like', 'gusto': 'pleasure (as in "nice to meet you")',
-  'ha': 'has (auxiliary)', 'habla': 'speak', 'hablar': 'to speak', 'hace': 'makes; ago',
+  'ha': 'has (auxiliary)', 'habla': 'speak', 'hablar': 'to speak', 'hace': 'makes; ago; it’s (weather, e.g. "hace calor")',
   'hasta': 'until', 'he': 'I have (auxiliary)', 'hola': 'hello', 'hora': 'hour, time',
   'huevo': 'egg', 'importa': 'matters', 'importaría': 'would matter (as in "would you mind")',
   'ingeniero/a': 'engineer', 'inglés': 'English', 'inteligencia': 'intelligence', 'irlanda': 'Ireland',
@@ -1021,6 +1088,40 @@ const WORD_GLOSS = {
   'u': 'or (before o-/ho-)', 'ver': 'to see (as in "a ver", let’s see)',
   'vegetariana': 'vegetarian (fem.)', 'vegetariano': 'vegetarian (masc.)', 'wifi': 'wifi',
   'ya': 'already', 'yo': 'I',
+
+  /* Supermercado vocabulary */
+  'apto': 'suitable', 'báscula': 'scale', 'caducidad': 'expiration', 'contactless': 'contactless',
+  'encontrar': 'to find', 'fidelización': 'loyalty (as in "tarjeta de fidelización")',
+  'frutos': 'fruits (as in "frutos secos", nuts)', 'funciona': 'works, functions', 'lácteos': 'dairy',
+  'necesita': 'needs (he/she/you formal)', 'oferta': 'offer, sale', 'pasillo': 'aisle',
+  'pesarlo': 'to weigh it', 'pin': 'PIN', 'quiere': 'wants (he/she/you formal)', 'secos': 'dry (as in "frutos secos")',
+  'tengo': 'I have', 'tique': 'receipt', 'trazas': 'traces', 'veganos': 'vegans',
+
+  /* Coffee customization + vegetarian protein vocabulary */
+  'caliente': 'hot', 'descafeinado': 'decaf', 'encanta': 'delights (as in "me encanta", I love)',
+  'garbanzos': 'chickpeas', 'lentejas': 'lentils', 'proteína': 'protein', 'seitán': 'seitan',
+  'shot': 'shot (of espresso)', 'soja': 'soy', 'tempeh': 'tempeh', 'templado': 'lukewarm',
+  'vegetal': 'plant-based, vegetable',
+
+  /* Money/tipping, transport, emergencies */
+  'ambulancia': 'ambulance', 'andén': 'platform', 'bajar': 'to get off (a vehicle)', 'bono': 'pass, bulk ticket',
+  'cambio': 'change (money)', 'cercana': 'nearby (fem.)', 'encuentro': 'I find myself (as in "no me encuentro bien")',
+  'farmacia': 'pharmacy', 'juntos': 'together', 'mi': 'my', 'pagamos': 'we pay', 'parada': 'stop (bus/train)',
+  'quédese': 'keep (formal imperative of quedarse)', 'separado': 'separate', 'urgente': 'urgent', 'viajes': 'trips',
+
+  /* Sobre mí additions */
+  'amante': 'lover, enthusiast', 'como': 'I eat', 'desde': 'since', 'gran': 'great, big (shortened before a noun)',
+  'unos': 'some, about (with a number)',
+
+  /* Time, days, months, weather */
+  'abril': 'April', 'agosto': 'August', 'buen': 'good (shortened before a masc. noun)',
+  'calor': 'heat (as in "hace calor", it’s hot)', 'diciembre': 'December', 'domingo': 'Sunday',
+  'enero': 'January', 'febrero': 'February', 'frío': 'cold', 'hoy': 'today', 'jueves': 'Thursday',
+  'julio': 'July', 'junio': 'June', 'lloviendo': 'raining', 'lunes': 'Monday', 'mal': 'bad',
+  'martes': 'Tuesday', 'mayo': 'May', 'media': 'half', 'miércoles': 'Wednesday', 'noviembre': 'November',
+  'octubre': 'October', 'sábado': 'Saturday', 'septiembre': 'September', 'sol': 'sun',
+  'son': 'they are (as in "son las tres", it’s three o’clock)', 'tiempo': 'time; weather',
+  'viernes': 'Friday', 'y': 'and',
 };
 
 function glossify(text) {
